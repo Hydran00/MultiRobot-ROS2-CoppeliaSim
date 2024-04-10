@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="rrbot_ros2_control" params="
+    name
+    prefix
+    use_fake_hardware:=false fake_sensor_commands:=false
+    sim_gazebo:=false
+    sim_ignition:=false
+    headless_mode:=false
+    initial_positions:=${dict(shoulder_pan_joint=0.0,shoulder_lift_joint=-1.57,elbow_joint=0.0,wrist_1_joint=-1.57,wrist_2_joint=0.0,wrist_3_joint=0.0)}
+    use_tool_communication:=false
+
+    hash_kinematics robot_ip
+    tool_voltage:=0 tool_parity:=0 tool_baud_rate:=115200 tool_stop_bits:=1
+    tool_rx_idle_chars:=1.5 tool_tx_idle_chars:=3.5 tool_device_name:=/tmp/ttyUR tool_tcp_port:=54321
+    reverse_port:=50001
+    script_sender_port:=50002
+    reverse_ip:=0.0.0.0
+    script_command_port:=50004">
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+          <plugin>ur_coppeliasim/RRBotSystemPositionOnlyHardware</plugin>
+          <param name="example_param_hw_start_duration_sec">0</param>
+          <param name="example_param_hw_stop_duration_sec">3.0</param>
+          <param name="example_param_hw_slowdown">100</param>
+      </hardware>
+      <joint name="${prefix}shoulder_pan_joint">
+        <command_interface name="position">
+          <param name="min">{-2*pi}</param>
+          <param name="max">{2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['shoulder_pan_joint']}</param>
+        </state_interface>
+      </joint>
+
+      <joint name="${prefix}shoulder_lift_joint">
+        <command_interface name="position">
+          <param name="min">{-2*pi}</param>
+          <param name="max">{2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['shoulder_lift_joint']}</param>
+        </state_interface>
+      </joint>
+
+      <joint name="${prefix}elbow_joint">
+        <command_interface name="position">
+          <param name="min">{-pi}</param>
+          <param name="max">{pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['elbow_joint']}</param>
+        </state_interface>
+      </joint>
+
+      <joint name="${prefix}wrist_1_joint">
+        <command_interface name="position">
+          <param name="min">{-2*pi}</param>
+          <param name="max">{2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['wrist_1_joint']}</param>
+        </state_interface>
+      </joint>
+
+      <joint name="${prefix}wrist_2_joint">
+        <command_interface name="position">
+          <param name="min">{-2*pi}</param>
+          <param name="max">{2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['wrist_2_joint']}</param>
+        </state_interface>
+      </joint>
+
+      <joint name="${prefix}wrist_3_joint">
+        <command_interface name="position">
+          <param name="min">{-2*pi}</param>
+          <param name="max">{2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <!-- initial position for the FakeSystem and simulation -->
+          <param name="initial_value">${initial_positions['wrist_3_joint']}</param>
+        </state_interface>
+      </joint>
+
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>
