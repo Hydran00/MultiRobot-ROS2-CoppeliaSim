@@ -1,0 +1,32 @@
+# Ignore build artifacts
+build/
+dist/
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore package dependencies
+node_modules/
+
+#vscode
+.vscode/
+ 
+# Ignore python cache files
+__pycache__/

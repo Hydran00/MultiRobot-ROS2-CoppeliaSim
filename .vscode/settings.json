@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "chrono": "cpp",
-        "*.tcc": "cpp",
-        "deque": "cpp",
-        "vector": "cpp"
-    }
-}
