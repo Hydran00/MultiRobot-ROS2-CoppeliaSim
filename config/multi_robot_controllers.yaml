@@ -1,0 +1,12 @@
+robot1:
+  controller_manager:
+    ros__parameters:
+      update_rate: 100  # Hz  
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster
+robot2:
+  controller_manager:
+    ros__parameters:
+      update_rate: 100  # Hz  
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster

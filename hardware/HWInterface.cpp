@@ -29,6 +29,8 @@ namespace ur_coppeliasim
 {
 
   sensor_msgs::msg::JointState current_joint_state;
+  int ROBOT_ID = 1;
+
   // HardwareComms Methods
   Robot_Controller::Robot_Controller() : Node("robot_controller")
   {
@@ -41,8 +43,11 @@ namespace ur_coppeliasim
         current_joint_state.position[i] = state->position[i];
       }
     };
-    command_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/coppelia_set_joints1", 0);
-    subscription = this->create_subscription<sensor_msgs::msg::JointState>("/coppelia_joint_states1", 0, stateCB);
+    string pub_topic_name = "/coppelia_set_joints"+to_string(ROBOT_ID);
+    string sub_topic_name = "/coppelia_joint_states"+to_string(ROBOT_ID);
+    command_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(pub_topic_name, 10);
+    subscription = this->create_subscription<sensor_msgs::msg::JointState>(sub_topic_name, 10, stateCB);
+    RCLCPP_INFO(this->get_logger(), "Hardware interface for robot %d is ready", ROBOT_ID);
   }
   void Robot_Controller::SendCmd(std::vector<double> cmd)
   {
@@ -63,13 +68,20 @@ namespace ur_coppeliasim
       return hardware_interface::CallbackReturn::ERROR;
     }
     // initializing variable to save the current joint state
+    current_joint_state.name = {"shoulder_pan_joint", "shoulder_lif_joint", "forearm_link", "wrist_link", "wrist_2_link", "wrist_3_link"};
 
-    current_joint_state.name = {"1_shoulder_pan_joint", "1_shoulder_lif_joint", "1_forearm_link", "1_wrist_1_link", "1_wrist_2_link", "1_wrist_3_link"};
+
+
     current_joint_state.position = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     current_joint_state.velocity = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     current_joint_state.effort = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     // initializing publisher for set joint in Coppelia
 
+    if (isdigit(info_.joints[0].name[0]))
+    {
+      // convert char to int
+      ROBOT_ID = info_.joints[0].name[0] - '0';
+    }
     // launching listener to Coppelia topic for joint states
     comms = std::make_shared<Robot_Controller>();
     executor_.add_node(comms);
@@ -90,6 +102,7 @@ namespace ur_coppeliasim
     {
       RCLCPP_INFO(
           rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "FOUND JOINT CALLED: '%s'", joint.name.c_str());
+      // check if the first char is a num
     }
 
 

@@ -86,7 +86,7 @@
      reverse_ip="$(arg reverse_ip)"
      script_command_port="$(arg script_command_port)"
      >
-     <origin xyz="0 0 1.79" rpy="3.14159 0 3.14159" />   
+     <origin xyz="0 0 0" rpy="0 0 0" />   
    </xacro:ur_robot>
 
    <!-- <xacro:if value="$(arg sim_gazebo)">
