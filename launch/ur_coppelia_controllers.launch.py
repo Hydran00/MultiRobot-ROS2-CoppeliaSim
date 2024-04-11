@@ -50,10 +50,10 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[robot_description, robot_controllers,{"use_sim_time": use_sim_time}],
         output="both",
-        # remappings=[
-        #     ('motion_control_handle/target_frame', 'target_frame'),
-        #     ('cartesian_motion_controller/target_frame', 'target_frame'),
-        #     ]
+        remappings=[
+            ('motion_control_handle/target_frame', 'target_frame'),
+            ('cartesian_motion_controller/target_frame', 'target_frame'),
+            ]
     )
 
     # Joint states broadcaster for RViz

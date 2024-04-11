@@ -30,8 +30,6 @@ def generate_launch_description():
     description_package = get_package_share_directory('ur_coppeliasim')
     xacro_path = os.path.join(description_package,"urdf","ur.urdf.xacro")
     robot_controllers = os.path.join(description_package,"config", "multi_robot_controllers.yaml")
-    # initial_joint_controllers = os.path.join(description_package,"config", "ur_controllers_coppelia.yaml")
-
 
     ur_type="ur3e"
     robot_description_content1 = xacro.process_file(xacro_path, mappings={"safety_limits":"true","safety_pos_margin":"0.15",
@@ -62,6 +60,10 @@ def generate_launch_description():
         parameters=[robot_description1, robot_controllers,{"use_sim_time": use_sim_time}],
         namespace="robot1",
         output="both",
+        remappings=[
+            ('motion_control_handle/target_frame', 'target_frame'),
+            ('cartesian_motion_controller/target_frame', 'target_frame'),
+        ]
     )
     # Joint states broadcaster for RViz
     joint_state_broadcaster_spawner1 = Node(
@@ -110,6 +112,10 @@ def generate_launch_description():
         parameters=[robot_description2, robot_controllers,{"use_sim_time": True}],
         namespace="robot2",
         output="both",
+        remappings=[
+            ('motion_control_handle/target_frame', 'target_frame'),
+            ('cartesian_motion_controller/target_frame', 'target_frame'),
+        ]
     )
 
     robot_state_publisher2 = Node(
@@ -139,25 +145,58 @@ def generate_launch_description():
         parameters=[{"use_sim_time": use_sim_time}]
     )
 
+
+    ## CONTROLLERS
+    cartesian_motion_controller_spawner1 = Node(
+        package="controller_manager",
+        executable=spawner,
+        namespace="robot1",
+        arguments=["cartesian_motion_controller", "-c", "/robot1/controller_manager"],
+        parameters=[{"use_sim_time": use_sim_time}]
+    )
+    motion_control_handle_spawner1 = Node(
+        package="controller_manager",
+        executable=spawner,
+        namespace="robot1",
+        arguments=["motion_control_handle", "-c", "/robot1/controller_manager"],
+        parameters=[{"use_sim_time": use_sim_time}]
+    )
+
+    cartesian_motion_controller_spawner2 = Node(
+        package="controller_manager",
+        executable=spawner,
+        namespace="robot2",
+        arguments=["cartesian_motion_controller", "-c", "/robot2/controller_manager"],
+        parameters=[{"use_sim_time": use_sim_time}]
+    )
+    motion_control_handle_spawner2 = Node(
+        package="controller_manager",
+        executable=spawner,
+        namespace="robot2",
+        arguments=["motion_control_handle", "-c", "/robot2/controller_manager"],
+        parameters=[{"use_sim_time": use_sim_time}]
+    )
+
+
     # Nodes to start
     nodes = [
         robot_state_publisher1,
         joint_state_broadcaster_spawner1,
         control_node1,
+        cartesian_motion_controller_spawner1,
+        motion_control_handle_spawner1,
 
         control_node2,
         joint_state_broadcaster_spawner2,
         robot_state_publisher2,
+        cartesian_motion_controller_spawner2,
+        motion_control_handle_spawner2,
 
         rviz,
-
-        # static_broadcaster1,
-        # static_broadcaster2
     ]
-    transform_broadcasters1 = TimerAction(period=1.0,
-            actions=[static_broadcaster1])
-    transform_broadcasters2 = TimerAction(period=1.0,
-            actions=[static_broadcaster2])
 
-    return LaunchDescription(nodes + [transform_broadcasters1, transform_broadcasters2] + [point_clouds_converter])
+    transform_broadcasters = TimerAction(period=1.0,
+            actions=[static_broadcaster1,static_broadcaster2])
+
+    return LaunchDescription(nodes + [transform_broadcasters] + [point_clouds_converter])
 

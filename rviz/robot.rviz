@@ -8,6 +8,7 @@ Panels:
         - /TF1/Frames1
         - /RobotModel1/Description Topic1
         - /RobotModel2/Description Topic1
+        - /InteractiveMarkers2
       Splitter Ratio: 0.5
     Tree Height: 883
 Visualization Manager:
@@ -225,7 +226,7 @@ Visualization Manager:
     - Class: rviz_default_plugins/InteractiveMarkers
       Enable Transparency: true
       Enabled: true
-      Interactive Markers Namespace: /motion_control_handle
+      Interactive Markers Namespace: /robot1/motion_control_handle
       Name: InteractiveMarkers
       Show Axes: false
       Show Descriptions: true
@@ -388,6 +389,15 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Class: rviz_default_plugins/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Interactive Markers Namespace: /robot2/motion_control_handle
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: true
+      Show Visual Aids: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 85; 87; 83
@@ -404,16 +414,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 3.808971881866455
+      Distance: 4.666213035583496
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0822695642709732
-        Y: 0.05687328428030014
-        Z: 0.2300937920808792
+        X: -0.08602625876665115
+        Y: 0.477974534034729
+        Z: 0.31827419996261597
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
