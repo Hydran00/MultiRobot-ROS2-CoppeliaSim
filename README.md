@@ -1,5 +1,5 @@
 # Multi-Robot Cooperation in ROS2 with CoppeliaSim
-This repository provides a ROS2 package, ur_coppeliasim, that implements an hardware interface of a Universal Robot using ROS2 controllers in CoppeliaSim.
+This repository provides a ROS2 package, ur_coppeliasim, that implements an hardware interface of a Universal Robot using ROS2 controllers in CoppeliaSim with the possibility of spawning multiple robots in the same scene.
 
 ## Installation
 
@@ -112,7 +112,7 @@ Open CoppeliaSim
 cd ~/CoppeliaSim/
 ./coppeliaSim.sh
 ```
-and load ``coppelia_world.ttt`` which is under ``~/ros2_ws/src/ur_coppeliasim`` through ``File->Open_Scene``, then click the play button. The robot will move to a predefined HOMING joint configuration.
+and load ``double_robot.ttt`` which is under ``~/ros2_ws/src/ur_coppeliasim`` through ``File->Open_Scene``, then click the play button. The robot will move to a predefined HOMING joint configuration.
 
 #### 2. Run the hardware interface + cartesian motion controller:
 ```
