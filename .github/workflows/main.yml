@@ -3,7 +3,7 @@ name: Humble CI
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   humble_source:
     runs-on: ubuntu-22.04
