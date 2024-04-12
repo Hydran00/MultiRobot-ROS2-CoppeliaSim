@@ -13,6 +13,8 @@ jobs:
           required-ros-distributions: humble
       - run: sudo apt-get install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-hardware-interface
       - run: sudo apt-get install ros-humble-pcl-*
+      - run: sudo apt-get install xsltproc
+      - run: python3 -m pip install pyzmq cbor xmlschema
       - uses: ros-tooling/action-ros-ci@v0.3
         with:
           package-name: ur_coppeliasim
