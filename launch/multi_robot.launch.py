@@ -126,14 +126,6 @@ def generate_launch_description():
         parameters=[robot_description2,{"use_sim_time": use_sim_time}],
     )
 
-    # include the launch file for point clouds
-    point_clouds_converter = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory('pc2_coppeliasim'), 'launch', 'pc2_coppeliasim.launch.py')
-        ),
-        launch_arguments=[('prefixes', PREFIX_LIST)]
-    )
-
     # Visualization
     rviz_config = os.path.join(get_package_share_directory('ur_coppeliasim'), 'rviz', 'robot.rviz')
     rviz = Node(
@@ -183,14 +175,10 @@ def generate_launch_description():
         robot_state_publisher1,
         joint_state_broadcaster_spawner1,
         control_node1,
-        cartesian_motion_controller_spawner1,
-        motion_control_handle_spawner1,
 
         control_node2,
         joint_state_broadcaster_spawner2,
         robot_state_publisher2,
-        cartesian_motion_controller_spawner2,
-        motion_control_handle_spawner2,
 
         rviz,
     ]
@@ -198,5 +186,22 @@ def generate_launch_description():
     transform_broadcasters = TimerAction(period=1.0,
             actions=[static_broadcaster1,static_broadcaster2])
 
-    return LaunchDescription(nodes + [transform_broadcasters] + [point_clouds_converter])
+    # controllers are launched only when robot's base_link(s) are in the correct position
+    controllers = [
+        cartesian_motion_controller_spawner1,
+        motion_control_handle_spawner1,
+        cartesian_motion_controller_spawner2,
+        motion_control_handle_spawner2,
+    ]
+
+    # include the launch file for point clouds
+    point_clouds_converter = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory('ur_coppeliasim'), 'launch', 'pc2_coppeliasim.launch.py')
+        ),
+        launch_arguments=[('prefixes', PREFIX_LIST)]
+    )
+
+    return LaunchDescription(nodes + [transform_broadcasters] + controllers + [point_clouds_converter])
+
 

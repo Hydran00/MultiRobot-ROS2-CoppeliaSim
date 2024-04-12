@@ -48,6 +48,7 @@ CoppeliaSim has a ros2 workspace internally, which is used by CoppeliaSim to bui
   ```
   - Append required message definition to the file called ``interfaces.txt``:    
 ```
+geometry_msgs/msg/PoseStamped
 geometry_msgs/msg/Wrench  
 geometry_msgs/msg/WrenchStamped  
 std_msgs/msg/MultiArrayDimension  
@@ -58,7 +59,7 @@ rosgraph_msgs/msg/Clock
 ``` 
 - Alternatively, both steps can be obtained also with:
 ```
-echo $'geometry_msgs/msg/Wrench\ngeometry_msgs/msg/WrenchStamped\nstd_msgs/msg/MultiArrayDimension\nstd_msgs/msg/MultiArrayLayout\nstd_msgs/msg/Float64MultiArray\nsensor_msgs/msg/JointState\nrosgraph_msgs/msg/Clock' >> ~/CoppeliaSim/programming/ros2_packages/sim_ros2_interface/meta/interfaces.txt
+echo $'geometry_msgs/msg/PoseStamped\ngeometry_msgs/msg/Wrench\ngeometry_msgs/msg/WrenchStamped\nstd_msgs/msg/MultiArrayDimension\nstd_msgs/msg/MultiArrayLayout\nstd_msgs/msg/Float64MultiArray\nsensor_msgs/msg/JointState\nrosgraph_msgs/msg/Clock' >> ~/CoppeliaSim/programming/ros2_packages/sim_ros2_interface/meta/interfaces.txt
 ```
 #### 7. Build CoppeliaSim workspace
   - To build the Coppelia ros2 workspace we define the ``COPPELIASIM_ROOT_DIR`` environment variable:  
@@ -114,7 +115,7 @@ Open CoppeliaSim
 cd ~/CoppeliaSim/
 ./coppeliaSim.sh
 ```
-and load ``double_robot.ttt`` which is under ``~/ros2_ws/src/ur_coppeliasim`` through ``File->Open_Scene``, then click the play button. The robot will move to a predefined HOMING joint configuration.
+and load ``double_robot.ttt`` which is under ``~/ros2_ws/src/ur_coppeliasim`` through ``File->Open_Scene``, then click the play button.
 
 #### 2. Run the hardware interface + cartesian motion controller:
 ```
@@ -124,4 +125,21 @@ An RViz window will display the robot model along with an interactive marker at 
 
 https://github.com/Hydran00/Universal_Robot_ROS2_CoppeliaSim/assets/93198865/1d3cc959-f36b-4224-923e-2f09fcd0596e
 
+### 3. Multi-robot collaboration with stereo-cameras
+If everything works you can setup the multi-robot version of the simulation.
+You need to put [this](git@github.com:Hydran00/pc2-coppeliasim-ROS2.git) under ros2_ws/src and build the workspace again.
+
+```
+cd ~/ros2_ws/src
+git clone https://github.com/Hydran00/pc2-coppeliasim-ROS2.git
+cd ..
+colcon build && source install/setup.bash
+```
+That package provides a C++ executables that convert the raw depth data into a PointCloud2 message.
+
+Then, you can run the multi-robot version of the simulation:
+
+```
+ros2 launch ur_coppeliasim multi_robot.launch.py
+```
 
