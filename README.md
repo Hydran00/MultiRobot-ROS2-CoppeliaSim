@@ -1,7 +1,7 @@
 # Multi-Robot Cooperation in ROS2 with CoppeliaSim
 This repository provides a ROS2 package, ur_coppeliasim, that implements an hardware interface of a Universal Robot using ROS2 controllers in CoppeliaSim with the possibility of spawning multiple robots in the same scene.
 
-<img src="assets/demo_rviz.png" width="800">
+<img src="assets/demo.png" width="900">
 
 ## Installation
 
