@@ -11,7 +11,7 @@ jobs:
       - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
-      - run: ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-hardware-interface
+      - run: sudo apt-get install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-hardware-interface
       - run: sudo apt-get install ros-humble-pcl-*
       - uses: ros-tooling/action-ros-ci@v0.3
         with:
