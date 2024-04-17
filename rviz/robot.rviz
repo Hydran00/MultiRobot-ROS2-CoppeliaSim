@@ -33,107 +33,19 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz_default_plugins/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
-        1_base:
-          Value: false
-        1_base_link:
-          Value: false
-        1_base_link_inertia:
-          Value: false
-        1_camera:
-          Value: true
-        1_flange:
-          Value: false
-        1_forearm_link:
-          Value: false
-        1_ft_frame:
-          Value: false
-        1_shoulder_link:
-          Value: false
-        1_tool0:
-          Value: false
-        1_upper_arm_link:
-          Value: false
-        1_wrist_1_link:
-          Value: false
-        1_wrist_2_link:
-          Value: false
-        1_wrist_3_link:
-          Value: false
-        2_base:
-          Value: false
-        2_base_link:
-          Value: false
-        2_base_link_inertia:
-          Value: false
-        2_camera:
-          Value: true
-        2_flange:
-          Value: false
-        2_forearm_link:
-          Value: false
-        2_ft_frame:
-          Value: false
-        2_shoulder_link:
-          Value: false
-        2_tool0:
-          Value: false
-        2_upper_arm_link:
-          Value: false
-        2_wrist_1_link:
-          Value: false
-        2_wrist_2_link:
-          Value: false
-        2_wrist_3_link:
-          Value: false
         All Enabled: false
-        world:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        world:
-          1_base_link:
-            1_base:
-              {}
-            1_base_link_inertia:
-              1_shoulder_link:
-                1_upper_arm_link:
-                  1_forearm_link:
-                    1_wrist_1_link:
-                      1_wrist_2_link:
-                        1_wrist_3_link:
-                          1_flange:
-                            1_camera:
-                              {}
-                            1_tool0:
-                              {}
-                          1_ft_frame:
-                            {}
-          2_base_link:
-            2_base:
-              {}
-            2_base_link_inertia:
-              2_shoulder_link:
-                2_upper_arm_link:
-                  2_forearm_link:
-                    2_wrist_1_link:
-                      2_wrist_2_link:
-                        2_wrist_3_link:
-                          2_flange:
-                            2_camera:
-                              {}
-                            2_tool0:
-                              {}
-                          2_ft_frame:
-                            {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
@@ -398,6 +310,46 @@ Visualization Manager:
       Show Descriptions: true
       Show Visual Aids: false
       Value: true
+    - Alpha: 1
+      Axes Length: 0.10000000149011612
+      Axes Radius: 0.019999999552965164
+      Class: rviz_default_plugins/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Axes
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot1/target_frame
+      Value: true
+    - Alpha: 1
+      Axes Length: 0.10000000149011612
+      Axes Radius: 0.019999999552965164
+      Class: rviz_default_plugins/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Axes
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot2/target_frame
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 85; 87; 83
@@ -414,25 +366,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.666213035583496
+      Distance: 3.409829616546631
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.08602625876665115
-        Y: 0.477974534034729
-        Z: 0.31827419996261597
+        X: -0.10629149526357651
+        Y: -0.006324231158941984
+        Z: 0.3418676555156708
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.1353989839553833
+      Pitch: 0.09039891511201859
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 6.263575553894043
+      Yaw: 6.2735772132873535
     Saved: ~
 Window Geometry:
   Displays:

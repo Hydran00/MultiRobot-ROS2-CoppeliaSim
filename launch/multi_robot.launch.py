@@ -9,10 +9,10 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os,time
 
 # Not elegant but works
-# os.system("ros2 topic pub /stopSimulation std_msgs/msg/Bool '{data: true}' --once")
-# time.sleep(0.5)
-# os.system("ros2 topic pub /startSimulation std_msgs/msg/Bool '{data: true}' --once")
-# time.sleep(0.5)
+os.system("ros2 topic pub /stopSimulation std_msgs/msg/Bool '{data: true}' --once")
+time.sleep(0.5)
+os.system("ros2 topic pub /startSimulation std_msgs/msg/Bool '{data: true}' --once")
+time.sleep(0.5)
 
 distro = os.environ['ROS_DISTRO']
 if distro == 'humble' or distro == 'galactic':
@@ -81,7 +81,7 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         namespace="robot1",
-        parameters=[robot_description1,{"use_sim_time": use_sim_time}],
+        parameters=[robot_description1,{"use_sim_time": use_sim_time, "publish_frequency": 100.0}],
     )
 
     static_broadcaster1 = Node(
@@ -123,7 +123,7 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         namespace="robot2",
-        parameters=[robot_description2,{"use_sim_time": use_sim_time}],
+        parameters=[robot_description2,{"use_sim_time": use_sim_time, "publish_frequency": 100.0}],
     )
 
     # Visualization
@@ -169,9 +169,15 @@ def generate_launch_description():
         parameters=[{"use_sim_time": use_sim_time}]
     )
 
-
-    # Nodes to start
-    nodes = [
+    # Static broadcasters
+    static_broadcaster1_t = TimerAction(period=2.0,
+            actions=[static_broadcaster1, static_broadcaster2])
+    # static_broadcaster2_t = TimerAction(period=0.0,
+    #         actions=[static_broadcaster2])
+    
+    # robot nodes
+    nodes = TimerAction(period=0.0,
+        actions=[
         robot_state_publisher1,
         joint_state_broadcaster_spawner1,
         control_node1,
@@ -180,24 +186,19 @@ def generate_launch_description():
         joint_state_broadcaster_spawner2,
         robot_state_publisher2,
 
-        # rviz,
-    ]
+    ])
 
     
-    rviz_t = TimerAction(period=1.0,
+    rviz_t = TimerAction(period=0.0,
             actions=[rviz])
 
-    static_broadcaster1_t = TimerAction(period=2.0,
-            actions=[static_broadcaster1])
-    static_broadcaster2_t = TimerAction(period=2.0,
-            actions=[static_broadcaster2])
     # controllers are launched only when robot's base_link(s) are in the correct position
-    controllers = TimerAction(period=3.0,
+    controllers = TimerAction(period=4.0,
                               actions=[
                                     cartesian_motion_controller_spawner1,
-                                    motion_control_handle_spawner1,
+                                    # motion_control_handle_spawner1,
                                     cartesian_motion_controller_spawner2,
-                                    motion_control_handle_spawner2,
+                                    # motion_control_handle_spawner2,
                                 ])
 
     # include the launch file for point clouds
@@ -208,6 +209,9 @@ def generate_launch_description():
         launch_arguments=[('prefixes', PREFIX_LIST)]
     )
 
-    return LaunchDescription(nodes + [rviz_t] + [controllers] + [static_broadcaster1_t,static_broadcaster2_t] + [point_clouds_converter])
+    # return LaunchDescription([nodes] + [rviz_t] + [controllers] + [point_clouds_converter])
+    return LaunchDescription([static_broadcaster1_t] + [nodes] + [rviz_t] + [controllers])# + [point_clouds_converter])
+
+
 
 
