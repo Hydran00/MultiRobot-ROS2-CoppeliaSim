@@ -9,10 +9,10 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os,time
 
 # Not elegant but works
-os.system("ros2 topic pub /stopSimulation std_msgs/msg/Bool '{data: true}' --once")
-time.sleep(0.5)
-os.system("ros2 topic pub /startSimulation std_msgs/msg/Bool '{data: true}' --once")
-time.sleep(0.5)
+# os.system("ros2 topic pub /stopSimulation std_msgs/msg/Bool '{data: true}' --once")
+# time.sleep(0.5)
+# os.system("ros2 topic pub /startSimulation std_msgs/msg/Bool '{data: true}' --once")
+# time.sleep(0.5)
 
 distro = os.environ['ROS_DISTRO']
 if distro == 'humble' or distro == 'galactic':
@@ -87,7 +87,7 @@ def generate_launch_description():
     static_broadcaster1 = Node(
         package="tf2_ros",
         executable="static_transform_publisher",
-        arguments = ["--y", "-1.0", "--frame-id", "world", "--child-frame-id", PREFIX_LIST[0]+"base_link"],
+        arguments = ["--y", "-0.75", "--frame-id", "world", "--child-frame-id", PREFIX_LIST[0]+"base_link"],
         parameters=[{"use_sim_time": use_sim_time}],
         output="log"
     )
@@ -95,7 +95,7 @@ def generate_launch_description():
     static_broadcaster2 = Node(
         package="tf2_ros",
         executable="static_transform_publisher",
-        arguments = ["--y","1.0","--yaw", "-3.1416", "--frame-id", "world", "--child-frame-id", PREFIX_LIST[1]+"base_link"],
+        arguments = ["--y","0.75","--yaw", "-3.1416", "--frame-id", "world", "--child-frame-id", PREFIX_LIST[1]+"base_link"],
         parameters=[{"use_sim_time": use_sim_time}],
         output="log"
     )
@@ -202,12 +202,12 @@ def generate_launch_description():
                                 ])
 
     # include the launch file for point clouds
-    point_clouds_converter = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory('ur_coppeliasim'), 'launch', 'pc2_coppeliasim.launch.py')
-        ),
-        launch_arguments=[('prefixes', PREFIX_LIST)]
-    )
+    # point_clouds_converter = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(get_package_share_directory('ur_coppeliasim'), 'launch', 'pc2_coppeliasim.launch.py')
+    #     ),
+    #     launch_arguments=[('prefixes', PREFIX_LIST)]
+    # )
 
     # return LaunchDescription([nodes] + [rviz_t] + [controllers] + [point_clouds_converter])
     return LaunchDescription([static_broadcaster1_t] + [nodes] + [rviz_t] + [controllers])# + [point_clouds_converter])
