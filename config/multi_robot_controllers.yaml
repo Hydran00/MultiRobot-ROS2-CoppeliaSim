@@ -1,4 +1,4 @@
-robot1:
+robot1_:
   controller_manager:
     ros__parameters:
       update_rate: 100  # Hz  
@@ -12,7 +12,7 @@ robot1:
       motion_control_handle:
         type: cartesian_controller_handles/MotionControlHandle
 
-robot2:
+robot2_:
   controller_manager:
     ros__parameters:
       update_rate: 100  # Hz  
@@ -27,7 +27,7 @@ robot2:
         type: cartesian_controller_handles/MotionControlHandle
 
 
-robot1:
+robot1_:
   cartesian_motion_controller:
     ros__parameters:
 
@@ -57,7 +57,7 @@ robot1:
           rot_x: {p: 3.0}
           rot_y: {p: 3.0}
           rot_z: {p: 3.0}
-robot1:
+robot1_:
   motion_control_handle:
     ros__parameters:
       end_effector_link: "1_camera"
@@ -73,7 +73,7 @@ robot1:
 
 
 
-robot2:
+robot2_:
   cartesian_motion_controller:
     ros__parameters:
 
@@ -104,7 +104,7 @@ robot2:
           rot_y: {p: 3.0}
           rot_z: {p: 3.0}
 
-robot2:
+robot2_:
   motion_control_handle:
     ros__parameters:
       end_effector_link: "2_camera"

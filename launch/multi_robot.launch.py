@@ -58,7 +58,7 @@ def generate_launch_description():
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description1, robot_controllers,{"use_sim_time": use_sim_time}],
-        namespace="robot1",
+        namespace="robot1_",
         output="both",
         remappings=[
             ('motion_control_handle/target_frame', 'target_frame'),
@@ -69,8 +69,8 @@ def generate_launch_description():
     joint_state_broadcaster_spawner1 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot1",
-        arguments=["joint_state_broadcaster", "-c", "/robot1/controller_manager"],
+        namespace="robot1_",
+        arguments=["joint_state_broadcaster", "-c", "/robot1_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
 
@@ -80,7 +80,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
-        namespace="robot1",
+        namespace="robot1_",
         parameters=[robot_description1,{"use_sim_time": use_sim_time, "publish_frequency": 100.0}],
     )
 
@@ -102,15 +102,15 @@ def generate_launch_description():
     joint_state_broadcaster_spawner2 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot2",
-        arguments=["joint_state_broadcaster", "-c", "/robot2/controller_manager"],
+        namespace="robot2_",
+        arguments=["joint_state_broadcaster", "-c", "/robot2_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
     control_node2 = Node(
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description2, robot_controllers,{"use_sim_time": True}],
-        namespace="robot2",
+        namespace="robot2_",
         output="both",
         remappings=[
             ('motion_control_handle/target_frame', 'target_frame'),
@@ -122,7 +122,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
-        namespace="robot2",
+        namespace="robot2_",
         parameters=[robot_description2,{"use_sim_time": use_sim_time, "publish_frequency": 100.0}],
     )
 
@@ -142,30 +142,30 @@ def generate_launch_description():
     cartesian_motion_controller_spawner1 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot1",
-        arguments=["cartesian_motion_controller", "-c", "/robot1/controller_manager"],
+        namespace="robot1_",
+        arguments=["cartesian_motion_controller", "-c", "/robot1_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
     motion_control_handle_spawner1 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot1",
-        arguments=["motion_control_handle", "-c", "/robot1/controller_manager"],
+        namespace="robot1_",
+        arguments=["motion_control_handle", "-c", "/robot1_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
 
     cartesian_motion_controller_spawner2 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot2",
-        arguments=["cartesian_motion_controller", "-c", "/robot2/controller_manager"],
+        namespace="robot2_",
+        arguments=["cartesian_motion_controller", "-c", "/robot2_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
     motion_control_handle_spawner2 = Node(
         package="controller_manager",
         executable=spawner,
-        namespace="robot2",
-        arguments=["motion_control_handle", "-c", "/robot2/controller_manager"],
+        namespace="robot2_",
+        arguments=["motion_control_handle", "-c", "/robot2_/controller_manager"],
         parameters=[{"use_sim_time": use_sim_time}]
     )
 

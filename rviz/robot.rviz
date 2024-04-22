@@ -6,11 +6,12 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
+        - /RobotModel1
         - /RobotModel1/Description Topic1
         - /RobotModel2/Description Topic1
-        - /InteractiveMarkers2
+        - /PoseArray1
       Splitter Ratio: 0.5
-    Tree Height: 883
+    Tree Height: 1155
 Visualization Manager:
   Class: ""
   Displays:
@@ -56,7 +57,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /robot1/robot_description
+        Value: /robot1_/robot_description
       Enabled: true
       Links:
         1_base:
@@ -154,7 +155,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /robot2/robot_description
+        Value: /robot2_/robot_description
       Enabled: true
       Links:
         2_base:
@@ -304,7 +305,7 @@ Visualization Manager:
     - Class: rviz_default_plugins/InteractiveMarkers
       Enable Transparency: true
       Enabled: true
-      Interactive Markers Namespace: /robot2/motion_control_handle
+      Interactive Markers Namespace: /robot1_/motion_control_handle
       Name: InteractiveMarkers
       Show Axes: false
       Show Descriptions: true
@@ -350,6 +351,27 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /robot2/target_frame
       Value: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.05000000074505806
+      Class: rviz_default_plugins/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: PoseArray
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Axes
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /voronoi_vertices1_
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 85; 87; 83
@@ -366,33 +388,33 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 3.409829616546631
+      Distance: 4.121362209320068
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.10629149526357651
-        Y: -0.006324231158941984
-        Z: 0.3418676555156708
+        X: -0.13273011147975922
+        Y: -0.028159447014331818
+        Z: 0.06096242368221283
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.09039891511201859
+      Pitch: 0.3903983235359192
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 6.2735772132873535
+      Yaw: 6.268592834472656
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1104
+  Height: 1376
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000010000000000000156000003f6fc0200000001fb000000100044006900730070006c006100790073010000003d000003f6000000c900ffffff000003e7000003f600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Width: 1347
-  X: 536
-  Y: 169
+  QMainWindow State: 000000ff00000000fd00000001000000000000015600000506fc0200000001fb000000100044006900730070006c006100790073010000003d00000506000000c900ffffff000003a40000050600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1280
+  X: 1280
+  Y: 27
