@@ -23,6 +23,12 @@ else:  # foxy
 # prefix to distinguish between the two robots
 PREFIX_LIST = ['1_', '2_']
 
+robot1_XYZ = "0.0 -0.75 0.0"
+robot1_RPY = "0.0 0.0 0.0"
+
+robot2_XYZ = "0.0 0.75 0.0"
+robot2_RPY = "0.0 0.0 -3.1416"
+
 def generate_launch_description():
     # Declare arguments
     declared_arguments = []
@@ -36,12 +42,16 @@ def generate_launch_description():
                                                                         "safety_k_position":"20",
                                                                         "name":"ur","ur_type":ur_type,
                                                                         "prefix":PREFIX_LIST[0],"sim_ignition":"false","sim_gazebo":"false",
-                                                                        "simulation_controllers":robot_controllers})
+                                                                        "simulation_controllers":robot_controllers,
+                                                                        "origin_XYZ":robot1_XYZ,
+                                                                        "origin_RPY":robot1_RPY})
     robot_description_content2 = xacro.process_file(xacro_path, mappings={"safety_limits":"true","safety_pos_margin":"0.15",
                                                                         "safety_k_position":"20",
                                                                         "name":"ur","ur_type":ur_type,
                                                                         "prefix":PREFIX_LIST[1],"sim_ignition":"false","sim_gazebo":"false",
-                                                                        "simulation_controllers":robot_controllers})
+                                                                        "simulation_controllers":robot_controllers,
+                                                                        "origin_XYZ":robot2_XYZ,
+                                                                        "origin_RPY":robot2_RPY})
 
     robot_description_content1 = robot_description_content1.toprettyxml(indent=' ')
     robot_description_content2 = robot_description_content2.toprettyxml(indent=' ')
@@ -170,8 +180,8 @@ def generate_launch_description():
     )
 
     # Static broadcasters
-    static_broadcaster1_t = TimerAction(period=2.0,
-            actions=[static_broadcaster1, static_broadcaster2])
+    # static_broadcaster1_t = TimerAction(period=2.0,
+    #         actions=[static_broadcaster1, static_broadcaster2])
     # static_broadcaster2_t = TimerAction(period=0.0,
     #         actions=[static_broadcaster2])
     
@@ -210,7 +220,7 @@ def generate_launch_description():
     # )
 
     # return LaunchDescription([nodes] + [rviz_t] + [controllers] + [point_clouds_converter])
-    return LaunchDescription([static_broadcaster1_t] + [nodes] + [rviz_t] + [controllers])# + [point_clouds_converter])
+    return LaunchDescription([nodes] + [rviz_t] + [controllers])# + [point_clouds_converter])
 
 
 
